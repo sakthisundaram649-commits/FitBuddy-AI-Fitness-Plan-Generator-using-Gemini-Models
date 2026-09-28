@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FitBuddy - All Users &amp; Workout Plans</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    padding: 24px;
+  }
+  h1 { text-align: center; color: #1a1a2e; }
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+  th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.9rem;
+  }
+  th { background: #3355ee; color: #fff; position: sticky; top: 0; }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 320px;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  tr:nth-child(even) { background: #fafbff; }
+</style>
+</head>
+<body>
+  <h1>📋 FitBuddy - All Users &amp; Workout Plans</h1>
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Weight (kg)</th>
+        <th>Goal</th>
+        <th>Intensity</th>
+        <th>Original Plan</th>
+        <th>Updated Plan</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.age }}</td>
+        <td>{{ user.weight }}</td>
+        <td>{{ user.goal }}</td>
+        <td>{{ user.intensity }}</td>
+        <td><pre>{{ user.original_plan }}</pre></td>
+        <td><pre>{{ user.updated_plan }}</pre></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+</html>
