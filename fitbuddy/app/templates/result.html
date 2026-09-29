@@ -26,12 +26,17 @@
     box-shadow: 0 6px 20px rgba(0,0,0,0.3);
   }
   .block h2 { margin-top: 0; font-size: 1.1rem; }
-  pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.5;
+  .plan-content { line-height: 1.6; }
+  .plan-content h3, .plan-content h4, .plan-content h5 {
+    color: #ffd479;
+    margin: 18px 0 8px 0;
   }
+  .plan-content h3:first-child, .plan-content h4:first-child { margin-top: 0; }
+  .plan-content p { margin: 8px 0; }
+  .plan-content ul { margin: 6px 0 14px 0; padding-left: 22px; }
+  .plan-content li { margin-bottom: 4px; }
+  .plan-content strong { color: #fff; }
+  .plan-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 16px 0; }
   form label { display: block; font-weight: 700; margin-bottom: 6px; }
   form input, form textarea {
     width: 100%;
@@ -57,6 +62,20 @@
     border-radius: 8px;
     margin-bottom: 20px;
   }
+  .warning {
+    background: #5a4210;
+    color: #ffe2a3;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .notice {
+    background: #1d3b5a;
+    color: #b9dcff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
   a.home-link { color: #9db4ff; }
 </style>
 </head>
@@ -66,6 +85,14 @@
 
   {% if feedback_submitted %}
   <div class="confirmation">✅ Your plan has been updated based on your feedback!</div>
+  {% endif %}
+
+  {% if error_message %}
+  <div class="warning">⚠️ {{ error_message }}</div>
+  {% endif %}
+
+  {% if reused %}
+  <div class="notice">ℹ️ Showing your saved plan (same User ID, goal and intensity), so no new AI request was needed.</div>
   {% endif %}
 
   <div class="block">
@@ -80,12 +107,12 @@
 
   <div class="block">
     <h2>Workout Plan</h2>
-    <pre>{{ workout_plan }}</pre>
+    <div class="plan-content">{{ workout_plan_html | safe }}</div>
   </div>
 
   <div class="block">
     <h2>💡 Nutrition Tip</h2>
-    <pre>{{ nutrition_tip }}</pre>
+    <div class="plan-content">{{ nutrition_tip_html | safe }}</div>
   </div>
 
   <div class="block">

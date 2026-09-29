@@ -75,6 +75,7 @@ def save_plan(user_id: int, plan: str, nutrition_tip: str = None):
         existing = db.query(WorkoutPlan).filter_by(user_id=user_id).first()
         if existing:
             existing.original_plan = plan
+            existing.updated_plan = None  # a fresh plan replaces any older updated version
             if nutrition_tip:
                 existing.nutrition_tip = nutrition_tip
         else:
@@ -101,6 +102,22 @@ def get_original_plan(user_id: int):
     try:
         plan = db.query(WorkoutPlan).filter(WorkoutPlan.user_id == user_id).first()
         return plan.original_plan if plan else None
+    finally:
+        db.close()
+
+
+def get_plan_record(user_id: int):
+    """Return the saved plan info for a user as a dict, or None if there is none."""
+    db = SessionLocal()
+    try:
+        plan = db.query(WorkoutPlan).filter(WorkoutPlan.user_id == user_id).first()
+        if not plan:
+            return None
+        return {
+            "original_plan": plan.original_plan,
+            "updated_plan": plan.updated_plan,
+            "nutrition_tip": plan.nutrition_tip,
+        }
     finally:
         db.close()
 

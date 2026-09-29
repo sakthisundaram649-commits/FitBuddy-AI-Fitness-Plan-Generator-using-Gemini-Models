@@ -37,6 +37,14 @@
     font-size: 0.8rem;
     margin: 0;
   }
+  .plan-cell {
+    max-width: 320px;
+    font-size: 0.8rem;
+  }
+  .plan-cell h3, .plan-cell h4, .plan-cell h5 { margin: 8px 0 4px 0; font-size: 0.85rem; }
+  .plan-cell ul { margin: 4px 0 8px 0; padding-left: 16px; }
+  .plan-cell p { margin: 4px 0; }
+  .plan-cell hr { border: none; border-top: 1px solid #ddd; margin: 8px 0; }
   tr:nth-child(even) { background: #fafbff; }
 </style>
 </head>
@@ -62,8 +70,8 @@
         <td>{{ user.weight }}</td>
         <td>{{ user.goal }}</td>
         <td>{{ user.intensity }}</td>
-        <td><pre>{{ user.original_plan }}</pre></td>
-        <td><pre>{{ user.updated_plan }}</pre></td>
+        <td class="plan-cell">{{ user.original_plan_html | safe }}</td>
+        <td class="plan-cell">{{ user.updated_plan_html | safe }}</td>
       </tr>
       {% endfor %}
     </table>
